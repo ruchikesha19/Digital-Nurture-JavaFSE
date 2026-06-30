@@ -1,0 +1,74 @@
+import java.util.HashMap;
+
+class Product {
+    int productId;
+    String productName;
+    int quantity;
+    double price;
+
+    Product(int productId, String productName, int quantity, double price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    void display() {
+        System.out.println(productId + " | " + productName + " | Quantity: " + quantity + " | Price: " + price);
+    }
+}
+
+public class InventoryManagementSystem {
+
+    HashMap<Integer, Product> inventory = new HashMap<>();
+
+    void addProduct(Product p) {
+        inventory.put(p.productId, p);
+        System.out.println("Product Added Successfully.");
+    }
+
+    void updateProduct(int id, int quantity, double price) {
+        Product p = inventory.get(id);
+
+        if (p != null) {
+            p.quantity = quantity;
+            p.price = price;
+            System.out.println("Product Updated Successfully.");
+        } else {
+            System.out.println("Product Not Found.");
+        }
+    }
+
+   
+    void deleteProduct(int id) {
+        if (inventory.remove(id) != null)
+            System.out.println("Product Deleted Successfully.");
+        else
+            System.out.println("Product Not Found.");
+    }
+
+    void displayInventory() {
+        System.out.println("\nInventory:");
+
+        for (Product p : inventory.values()) {
+            p.display();
+        }
+    }
+
+    public static void main(String[] args) {
+
+        InventoryManagementSystem ims = new InventoryManagementSystem();
+
+        ims.addProduct(new Product(101, "Laptop", 20, 65000));
+        ims.addProduct(new Product(102, "Mouse", 100, 500));
+        ims.addProduct(new Product(103, "Keyboard", 50, 1200));
+
+        ims.displayInventory();
+
+        ims.updateProduct(102, 120, 550);
+
+        ims.deleteProduct(103);
+
+        ims.displayInventory();
+    }
+}

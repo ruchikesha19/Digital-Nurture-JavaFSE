@@ -1,0 +1,19 @@
+Scenario 2: CalculateMonthlyInstallment
+CREATE OR REPLACE FUNCTION CalculateMonthlyInstallment (
+    p_LoanAmount IN NUMBER,
+    p_InterestRate IN NUMBER,
+    p_Years IN NUMBER
+)
+RETURN NUMBER
+AS
+    v_MonthlyInstallment NUMBER;
+BEGIN
+
+    v_MonthlyInstallment :=
+        (p_LoanAmount + (p_LoanAmount * p_InterestRate * p_Years / 100))
+        / (p_Years * 12);
+
+    RETURN v_MonthlyInstallment;
+
+END;
+/

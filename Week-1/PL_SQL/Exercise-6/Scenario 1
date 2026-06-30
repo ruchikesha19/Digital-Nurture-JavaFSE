@@ -1,0 +1,31 @@
+Scenario 1: GenerateMonthlyStatements
+DECLARE
+
+    CURSOR GenerateMonthlyStatements IS
+        SELECT CustomerID,
+               AccountID,
+               TransactionDate,
+               Amount,
+               TransactionType
+        FROM Accounts A
+        JOIN Transactions T
+        ON A.AccountID = T.AccountID
+        WHERE TO_CHAR(TransactionDate, 'MMYYYY') =
+              TO_CHAR(SYSDATE, 'MMYYYY');
+
+BEGIN
+
+    FOR rec IN GenerateMonthlyStatements LOOP
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Customer ID: ' || rec.CustomerID ||
+            ', Account ID: ' || rec.AccountID ||
+            ', Date: ' || TO_CHAR(rec.TransactionDate, 'DD-MON-YYYY') ||
+            ', Amount: ' || rec.Amount ||
+            ', Type: ' || rec.TransactionType
+        );
+
+    END LOOP;
+
+END;
+/

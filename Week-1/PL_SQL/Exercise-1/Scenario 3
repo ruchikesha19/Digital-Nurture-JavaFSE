@@ -1,0 +1,20 @@
+Scenario 3: Send Loan Due Reminders
+
+BEGIN
+
+    FOR loan IN (
+        SELECT CustomerID, LoanID, EndDate
+        FROM Loans
+        WHERE EndDate BETWEEN SYSDATE AND SYSDATE + 30
+    ) LOOP
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Reminder: Customer ID ' || loan.CustomerID ||
+            ' has Loan ID ' || loan.LoanID ||
+            ' due on ' || TO_CHAR(loan.EndDate, 'DD-MON-YYYY')
+        );
+
+    END LOOP;
+
+END;
+/

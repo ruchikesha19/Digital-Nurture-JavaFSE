@@ -1,0 +1,24 @@
+Scenario 3: UpdateLoanInterestRates
+DECLARE
+
+    CURSOR UpdateLoanInterestRates IS
+        SELECT LoanID, InterestRate
+        FROM Loans
+        FOR UPDATE;
+
+BEGIN
+
+    FOR rec IN UpdateLoanInterestRates LOOP
+
+        UPDATE Loans
+        SET InterestRate = InterestRate + 0.5
+        WHERE CURRENT OF UpdateLoanInterestRates;
+
+    END LOOP;
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE('Loan interest rates updated successfully.');
+
+END;
+/
