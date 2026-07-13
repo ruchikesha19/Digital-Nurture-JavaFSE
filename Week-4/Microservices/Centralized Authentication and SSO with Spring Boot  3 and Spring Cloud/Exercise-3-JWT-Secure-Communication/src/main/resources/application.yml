@@ -1,0 +1,6 @@
+spring:
+  security:
+    jwt:
+      secret: mySuperSecretKeyForSpringSecurityAuthenticationDemoWhichMustBeAtLeast32BytesLong
+server:
+  port: 8082
